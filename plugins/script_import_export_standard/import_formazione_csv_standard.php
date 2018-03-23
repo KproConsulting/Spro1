@@ -9,9 +9,9 @@
  * @version 1.0
  */
 
-require_once('../import_export_utils/import_utils.php'); /* kpro@bid190420171000 */
+require_once(__DIR__.'/../import_export_utils/import_utils.php'); /* kpro@bid190420171000 */
 
-include_once('../../config.inc.php');
+include_once(__DIR__.'/../../config.inc.php');
 chdir($root_directory);
 require_once('include/utils/utils.php');
 include_once('vtlib/Vtiger/Module.php');
