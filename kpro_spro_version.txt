@@ -59,3 +59,4 @@ S-PRO 1.0
 - 08/01/2018 kpro@bid080120171100 Correzione popup destinatari nel popup di invio mail
 - 14/02/2018 kpro@tom140220181508 Correzione per disassociare (dalla related) i Tipi Corso Validi anche Per
 - 02/03/2018 kpro@bid020320181600 Modifica per non nascondere le tasse extra in anagrafica prodotti e servizi
+- 23/03/2018 kpro@tom230320181207 Correzioni tasti help magnitudo e probabilità privacy
