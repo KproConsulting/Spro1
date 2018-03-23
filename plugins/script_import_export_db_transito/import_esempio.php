@@ -9,7 +9,7 @@
 
 require_once('Classi/KpImportStabilimenti.php');
 
-include_once('../../config.inc.php');
+include_once(__DIR__.'/../../config.inc.php');
 chdir($root_directory);
 require_once('include/utils/utils.php');
 include_once('vtlib/Vtiger/Module.php');
