@@ -521,7 +521,7 @@ function ImportMansioniStandard($id_risorsa, $dati_riga){
 
     $numero_colonna_partenza = 29;
     $numero_colonne_record = 2;
-    $numero_record = 4;
+    $numero_record = 5; /* kpro@bid290320181050 */
     $i = 0;
     while($i < $numero_record){
         $numero_colonna = $numero_colonna_partenza + ($i * $numero_colonne_record);
