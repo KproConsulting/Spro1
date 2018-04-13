@@ -55,6 +55,8 @@ S-PRO 1.0
 - 07/06/2017 kpro@tom070620171006 Correzione bug related documenti nel modulo servizi
 - 26/07/2017 kpro@tom260720171724 Permette di vedere una doppia related ai TipiCorso (nel modulo TipiCorso stesso)
 - 27/07/2017 kpro@tom270720170938 Gestione tipi corso validi anche per altri tipi corso
+- 29/11/2017 kpro@bid291120171400 Modifiche al cuore per inserimento gestione tasse custom
+- 22/12/2017 kpro@tom221220171400 Modifiche al cuore per inserire l'immagine di loading nei moduli con blocco prodotti
 - 04/01/2018 kpro@tom040120180831 Correzione massedit tasse servizi
 - 08/01/2018 kpro@bid080120171100 Correzione popup destinatari nel popup di invio mail
 - 14/02/2018 kpro@tom140220181508 Correzione per disassociare (dalla related) i Tipi Corso Validi anche Per
@@ -62,3 +64,4 @@ S-PRO 1.0
 - 23/03/2018 kpro@tom230320181207 Correzioni tasti help magnitudo e probabilità privacy
 - 29/03/2018 kpro@bid290320180900 Correzione import custom risorse-mansioni per scrivere il campo Tasse in quanto obbligatorio nell'azienda
 - 29/03/2018 kpro@bid290320181050 Correzione import custom risorse-mansioni per importare 5 colonne di mansioni-risorsa anzichè 4
+- 13/04/2018 kpro@bid130420181425 Correzione tasto logout nel portale clienti che non puntava al file corretto e quindi non faceva il logout
