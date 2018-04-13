@@ -65,3 +65,5 @@ S-PRO 1.0
 - 29/03/2018 kpro@bid290320180900 Correzione import custom risorse-mansioni per scrivere il campo Tasse in quanto obbligatorio nell'azienda
 - 29/03/2018 kpro@bid290320181050 Correzione import custom risorse-mansioni per importare 5 colonne di mansioni-risorsa anzichè 4
 - 13/04/2018 kpro@bid130420181425 Correzione tasto logout nel portale clienti che non puntava al file corretto e quindi non faceva il logout
+- 13/04/2018 kpro@bid130420181720 Correzione documenti duplicati nel portale se collegati sia all'azienda che alla risorsa
+
