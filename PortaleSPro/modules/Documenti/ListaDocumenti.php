@@ -81,7 +81,7 @@ else{
 }
 
 $rows = array();
-$lista_documenti = array(); /* kpro@bid13041720 */
+$lista_documenti = array(); /* kpro@bid130420181720 */
 
 if(isset($_GET['nome_documento'])){
     $nome_documento = addslashes(html_entity_decode(strip_tags($_GET['nome_documento']), ENT_QUOTES,$default_charset));
@@ -161,11 +161,11 @@ $res_documenti = $adb->query($q_documenti);
 $num_documenti = $adb->num_rows($res_documenti);
 
 for($i=0; $i < $num_documenti; $i++){
-	$documento_gia_passato = false; /* kpro@bid13041720 */
+	$documento_gia_passato = false; /* kpro@bid130420181720 */
 	
 	$notesid = $adb->query_result($res_documenti, $i, 'notesid');
 	$notesid = html_entity_decode(strip_tags($notesid), ENT_QUOTES,$default_charset);
-    /* kpro@bid13041720 start */             
+    /* kpro@bid130420181720 start */             
 	if (empty($lista_documenti)) {
 		$lista_documenti[] = $notesid;
 	} else {
@@ -176,7 +176,7 @@ for($i=0; $i < $num_documenti; $i++){
 		}
 	}
 	
-	if(!$documento_gia_passato){ /* kpro@bid13041720 end */
+	if(!$documento_gia_passato){ /* kpro@bid130420181720 end */
 		$title = $adb->query_result($res_documenti, $i, 'title');
 		$title = html_entity_decode(strip_tags($title), ENT_QUOTES,$default_charset);
 	
@@ -214,7 +214,7 @@ for($i=0; $i < $num_documenti; $i++){
 						'data_documento' => $data_documento,
 						'data_scadenza' => $data_scadenza,
 						'stato_documento' => $stato_documento);
-	} /* kpro@bid13041720 */
+	} /* kpro@bid130420181720 */
 	
 }
 	
