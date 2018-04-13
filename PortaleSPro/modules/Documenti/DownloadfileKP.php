@@ -91,7 +91,7 @@ if($attachmentsid != '' && $attachmentsid != 0 && $entityid != '' && $entityid !
 	//$dbQuery = "SELECT * FROM ".$table_prefix."_attachments WHERE attachmentsid = ?" ;
 
 	$result = $adb->pquery($dbQuery, array($attachmentsid)) or die("Couldn't get file list");
-	if($adb->num_rows($result) > 0) /* kpro@bid13041720 */
+	if($adb->num_rows($result) > 0) /* kpro@bid130420181720 */
 	{
 		$fileType = @$adb->query_result($result, 0, "type");
 		$name = @$adb->query_result($result, 0, "name");
