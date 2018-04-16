@@ -1114,9 +1114,9 @@ function calcolaSituazioneTipoCorsoAggiornamento($risorsa, $mansionirisorsaid, $
 			
 			if(count($lista_formazione_eseguita) == 0){
 		
-				$stato_formazione = 'Non eseguita';
+				$stato_formazione = 'Eseguire entro';	//Kpro@tom160420181414
 				$data_formazione = '';
-				$validita_formazione = '';
+				$validita_formazione = $dati_situazione_formazione_precedente["validita_formazione"];	//Kpro@tom160420181414
 				$durata_formazione = 0;
 				$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione.";
 				
