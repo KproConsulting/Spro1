@@ -67,3 +67,4 @@ S-PRO 1.0
 - 13/04/2018 kpro@bid130420181425 Correzione tasto logout nel portale clienti che non puntava al file corretto e quindi non faceva il logout
 - 13/04/2018 kpro@bid130420181720 Correzione documenti duplicati nel portale se collegati sia all'azienda che alla risorsa
 - 14/04/2018 kpro@tom160420181414 Modifica per dire che un corso di aggiornamento è un "da eseguire entro" e per settare la data sulla base del corso precedente
+- 17/04/2018 kpro@bid170420180940 Correzione nel portale clienti in quanto non si vedeva lo stato "Eseguire entro" per la formazione
