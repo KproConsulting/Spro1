@@ -1114,12 +1114,37 @@ function calcolaSituazioneTipoCorsoAggiornamento($risorsa, $mansionirisorsaid, $
 			
 			if(count($lista_formazione_eseguita) == 0){
 		
-				$stato_formazione = 'Eseguire entro';	//Kpro@tom160420181414
 				$data_formazione = '';
 				$validita_formazione = $dati_situazione_formazione_precedente["validita_formazione"];	//Kpro@tom160420181414
 				$durata_formazione = 0;
-				$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione.";
 				
+				//Kpro@tom160420181414
+
+				$data_corrente = date("Y-m-d");
+				list($anno, $mese, $giorno) = explode("-", $data_corrente);
+				$in_scadenza = date("Y-m-d", mktime(0, 0, 0,$mese, (int)$giorno + $giorni_in_scadenza, $anno));
+
+				if( $dati_situazione_formazione_precedente["validita_formazione"] <= $data_corrente ){
+
+					$stato_formazione = 'Non eseguita';
+					$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione.";
+
+				}
+				elseif( $dati_situazione_formazione_precedente["validita_formazione"]  > $data_corrente && $dati_situazione_formazione_precedente["validita_formazione"] <= $in_scadenza ) {
+
+					$stato_formazione = "In scadenza";
+					$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione. Tuttavia la risorsa ha tempo fino il ".$dati_situazione_formazione_precedente["validita_formazione"]." per eseguire la formazione.";
+
+				}
+				else{
+					
+					$stato_formazione = 'Eseguire entro';
+					$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione. Tuttavia la risorsa ha tempo fino il ".$dati_situazione_formazione_precedente["validita_formazione"]." per eseguire la formazione.";
+
+				}
+
+				//Kpro@tom160420181414 end
+
 			}
 			else{
 				
@@ -1163,7 +1188,7 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
      */
 	
 	$data_corrente = date("Y-m-d");
-	$stato_formazione = 'Non eseguita';
+	$stato_formazione = 'Eseguire entro';	//Kpro@tom160420181414
 	$data_formazione = "";
 	$validita_formazione = "";
 	$durata_formazione = 0;
@@ -1209,11 +1234,20 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
 		
 		if(count($lista_formazione_eseguita) == 0){
 
-			/* kpro@tom06102017 */
+			/* kpro@tom160420181414 */
 
-			if( $fino_a_data_prec <= date("Y-m-d") ){
+			$data_corrente = date("Y-m-d");
+			list($anno, $mese, $giorno) = explode("-", $data_corrente);
+			$in_scadenza = date("Y-m-d", mktime(0, 0, 0,$mese, (int)$giorno + $giorni_in_scadenza, $anno));
+
+			if( $fino_a_data_prec <= $data_corrente ){
 		
 				$stato_formazione = 'Non eseguita';
+
+			}
+			elseif( $fino_a_data_prec > $data_corrente && $fino_a_data_prec <= $in_scadenza ){
+
+				$stato_formazione = "In scadenza";
 
 			}
 			else{
@@ -1222,7 +1256,7 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
 
 			}
 
-			/* kpro@tom06102017 end */
+			/* kpro@tom160420181414 end */
 
 			$data_formazione = $da_data_prec;
 			$validita_formazione = $fino_a_data_prec;
@@ -1308,11 +1342,20 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
 		}
 		else{
 
-			/* kpro@tom06102017 */
+			/* kpro@tom160420181414 */
+
+			$data_corrente = date("Y-m-d");
+			list($anno, $mese, $giorno) = explode("-", $data_corrente);
+			$in_scadenza = date("Y-m-d", mktime(0, 0, 0,$mese, (int)$giorno + $giorni_in_scadenza, $anno));
 			
 			if( $fino_a_data <= date("Y-m-d") ){
 
 				$stato_formazione = 'Non eseguita';
+
+			}
+			elseif( $fino_a_data > $data_corrente && $fino_a_data <= $in_scadenza ){
+
+				$stato_formazione = "In scadenza";
 
 			}
 			else{
@@ -1321,7 +1364,7 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
 
 			}
 
-			/* kpro@tom06102017 end */
+			/* kpro@tom160420181414 end */
 
 			$nota_stato = "Nota stato situazione formazione: La formazione NON e' stata eseguita in quanto per tale tipo corso e tale risorsa non risultano partecipazioni a corsi di formazione all'interno della finestra temporale in esame (".$da_data_inv." - ".$fino_a_data_inv.").";
 
@@ -1943,5 +1986,36 @@ function setMansioneRisorsaNonAttiva($mansionerisorsaid, $data_fine){
 
 }
 
+function getConfigurazioneIdStatici($id_configurazione){	
+	global $adb, $table_prefix, $current_user;
+
+	/* kpro@bid16042018 */
+
+    /**
+     * @author Bidese Jacopo
+     * @copyright (c) 2018, Kpro Consulting Srl
+     */
+
+	$valore = 0;
+
+	$q_query = "SELECT valore
+			FROM kp_settings_config_id_statici
+			WHERE id_configurazione = ".$id_configurazione;
+	
+	$res_query = $adb->query($q_query);
+
+    if($adb->num_rows($res_query) > 0){
+
+        $valore = $adb->query_result($res_query, 0,'valore');
+		$valore = html_entity_decode(strip_tags($valore), ENT_QUOTES, $default_charset);
+		if($valore == '' || $valore == null){
+			$valore = 0;
+		}
+
+	}
+
+	return $valore;
+
+}
 
 ?>
