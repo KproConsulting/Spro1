@@ -1,7 +1,7 @@
 <?php
 
 function recuperaTipiCorsoDallaMansione($risorsa_mansione_id){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom2412015 */
 
@@ -75,7 +75,7 @@ function recuperaTipiCorsoDallaMansione($risorsa_mansione_id){
 }
 
 function recuperaTipiVisiteMedicheDallaMansione($risorsa_mansione_id){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom2412015 */
 
@@ -149,7 +149,7 @@ function recuperaTipiVisiteMedicheDallaMansione($risorsa_mansione_id){
 }
 
 function recuperaCategoriePrivacyDallaMansione($risorsa_mansione_id){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom01092017 */
 
@@ -221,7 +221,7 @@ function recuperaCategoriePrivacyDallaMansione($risorsa_mansione_id){
 }
 
 function calcolaSituazioneFormazione(){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom010220170902 */
 
@@ -255,7 +255,7 @@ function calcolaSituazioneFormazione(){
 }
 
 function getAziendePerSituazioneFormazione(){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
 	
 	/* kpro@tom27122016 */
 
@@ -287,7 +287,7 @@ function getAziendePerSituazioneFormazione(){
     for($i=0; $i<$num_account; $i++){		
 
         $account = $adb->query_result($res_account,$i,'accountid');
-        $account = html_entity_decode(strip_tags($account), ENT_QUOTES,$default_charset);
+        $account = html_entity_decode(strip_tags($account), ENT_QUOTES, $default_charset);
 		
 		$result[] = array('accountid' => $account);
 		
@@ -298,7 +298,7 @@ function getAziendePerSituazioneFormazione(){
 }
 
 function getGiorniInScadenzaAzienda($azienda, $default){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
 	
 	/* kpro@tom27122016 */
 
@@ -346,7 +346,7 @@ function getGiorniInScadenzaAzienda($azienda, $default){
 }
 
 function calcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -379,11 +379,19 @@ function calcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza){
 			ent.deleted = 1
 			WHERE sitform.aggiornato != '1' AND sitform.azienda = ".$account;
 	$adb->query($upd);
+
+	//Kpro@tom160420181414
+
+	include_once(__DIR__."/../../SDK/src/ClienteUtils.php");
+
+	kpPostElaborazioneCalcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza);
+
+	//Kpro@tom160420181414 end
     
 }
 
 function getRisorseAzienda($azienda){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
 	
 	/* kpro@tom27122016 */
 
@@ -420,7 +428,7 @@ function getRisorseAzienda($azienda){
 }
 
 function calcolaSituazioneFormazioneRisorsa($risorsa, $giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -442,7 +450,7 @@ function calcolaSituazioneFormazioneRisorsa($risorsa, $giorni_in_scadenza){
 }
 
 function getMansioniRisorsa($risorsa){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
 	
 	/* kpro@tom27122016 */
 
@@ -475,7 +483,7 @@ function getMansioniRisorsa($risorsa){
 }
 
 function calcolaSituazioneFormazioneMansioneRisorsa($risorsa, $mansionirisorsaid, $giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -497,7 +505,7 @@ function calcolaSituazioneFormazioneMansioneRisorsa($risorsa, $mansionirisorsaid
 }
 
 function getTipiCorsoMansioniRisorsa($mansionirisorsa){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
 	
 	/* kpro@tom27122016 */
 
@@ -541,7 +549,7 @@ function getTipiCorsoMansioniRisorsa($mansionirisorsa){
 }
 
 function calcolaSituazioneFormazioneTipoCorso($risorsa,$mansionirisorsaid,$tipo_corso,$giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -567,7 +575,7 @@ function calcolaSituazioneFormazioneTipoCorso($risorsa,$mansionirisorsaid,$tipo_
 }
 
 function verificaSeAggiornamentoDiAltroTipoCorso($tipo_corso){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -599,7 +607,7 @@ function verificaSeAggiornamentoDiAltroTipoCorso($tipo_corso){
 }
 
 function getDatiTipoCorso($tipo_corso){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -664,7 +672,7 @@ function getDatiTipoCorso($tipo_corso){
 }
 
 function calcolaSituazioneTipoCorsoBase($risorsa, $mansionirisorsaid, $tipo_corso, $giorni_in_scadenza, $aggiorna){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -709,7 +717,7 @@ function calcolaSituazioneTipoCorsoBase($risorsa, $mansionirisorsaid, $tipo_cors
 }
 
 function setSituazioneFormazione($tipo_corso, $risorsa, $mansionirisorsaid, $durata_formazione, $data_formazione, $validita_formazione, $stato_formazione, $nota_stato, $validita_formazione_prec, $formazione_scaglionata, $finestra_antecedente, $lista_formazione_eseguita){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
 	
 	if($durata_formazione == null || $durata_formazione == ''){
 		$durata_formazione = 0;
@@ -870,7 +878,7 @@ function setSituazioneFormazione($tipo_corso, $risorsa, $mansionirisorsaid, $dur
 }
 
 function pulisciRelatedPartecipazioniSituazioneFormazione($situazioneformazione){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -895,7 +903,7 @@ function pulisciRelatedPartecipazioniSituazioneFormazione($situazioneformazione)
 }
 
 function setRelatedPartecipazioniSituazioneFormazione($situazioneformazione, $partecipazione){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -911,7 +919,7 @@ function setRelatedPartecipazioniSituazioneFormazione($situazioneformazione, $pa
 }
 
 function getDatiMansioneRisorsa($mansionirisorsa){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -956,7 +964,7 @@ function getDatiMansioneRisorsa($mansionirisorsa){
 }
 
 function getFormazioneEseguitaRisorsaTipoCorso($risorsa, $tipo_corso, $aggiornato_da, $giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -1062,7 +1070,7 @@ function getFormazioneEseguitaRisorsaTipoCorso($risorsa, $tipo_corso, $aggiornat
 }
 
 function calcolaSituazioneTipoCorsoAggiornamento($risorsa, $mansionirisorsaid, $tipo_corso, $giorni_in_scadenza, $aggiorna){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -1178,7 +1186,7 @@ function calcolaSituazioneTipoCorsoAggiornamento($risorsa, $mansionirisorsaid, $
 }  
 
 function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $mansionirisorsaid, $aggiornato_da, $data_scadenza_corso_base, $giorni_in_scadenza, $durata_corso, $anni_rinnovo, $aggiorna){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     /* kpro@tom27122016 */
 
@@ -1398,7 +1406,7 @@ function calcolaFormazioneScaglionataRisorsaTipoCorso($risorsa, $tipo_corso, $ma
 }  
 
 function getFormazioneScaglionataEseguitaRisorsaTipoCorso($risorsa, $tipo_corso, $giorni_in_scadenza, $da_data, $a_data, $durata_corso, $eseguita_precedente){
-    global $adb, $table_prefix, $current_user; 
+    global $adb, $table_prefix, $current_user, $default_charset; 
 	
 	/* kpro@tom27122016 */
 
@@ -1548,7 +1556,7 @@ function getFormazioneScaglionataEseguitaRisorsaTipoCorso($risorsa, $tipo_corso,
 }
 
 function getFormazionePrecedente($risorsa, $mansionirisorsaid, $tipo_corso_aggiornamento, $giorni_in_scadenza){
-    global $adb, $table_prefix, $current_user; 
+    global $adb, $table_prefix, $current_user, $default_charset; 
 	
 	/* kpro@tom27122016 */
 
@@ -1605,7 +1613,7 @@ function getFormazionePrecedente($risorsa, $mansionirisorsaid, $tipo_corso_aggio
 }
 
 function getTipoCorsoPrecedente($mansionirisorsa, $tipo_corso_aggiornamento){
-	global $adb, $table_prefix, $current_user; 
+	global $adb, $table_prefix, $current_user, $default_charset; 
 	
 	/* kpro@tom27122016 */
 
@@ -1649,7 +1657,7 @@ function getTipoCorsoPrecedente($mansionirisorsa, $tipo_corso_aggiornamento){
 }
 
 function getSituazioneFormazionePrecedente($risorsa, $mansionirisorsa, $tipo_corso, $giorni_in_scadenza){
-	global $adb, $table_prefix, $current_user; 
+	global $adb, $table_prefix, $current_user, $default_charset; 
 	
 	/* kpro@tom27122016 */
 
@@ -1721,7 +1729,7 @@ function getSituazioneFormazionePrecedente($risorsa, $mansionirisorsa, $tipo_cor
 }
 
 function calcolaSituazioneDocumenti(){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     $q_documento = "SELECT notesid FROM {$table_prefix}_notes
                     INNER JOIN {$table_prefix}_crmentity ON crmid = notesid
@@ -1744,7 +1752,7 @@ function calcolaSituazioneDocumenti(){
 }
 
 function calcolaSituazioneDocumento($documento){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     $data_corrente = date("Y-m-d");
     
@@ -1784,7 +1792,7 @@ function calcolaSituazioneDocumento($documento){
 }
 
 function calcolaAziendeRelazionateAlDocumento($documento){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     $lista_account = "";
 	
@@ -1819,7 +1827,7 @@ function calcolaAziendeRelazionateAlDocumento($documento){
 }
 
 function calcolaStabilimentiRelazionateAlDocumento($documento){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     $lista_stabilimenti = "";
     
@@ -1854,7 +1862,7 @@ function calcolaStabilimentiRelazionateAlDocumento($documento){
 }
 
 function aggiornaSituazioneFormazioneRisorsaInAnagrafica($risorsa){
-    global $adb, $table_prefix, $current_user;
+    global $adb, $table_prefix, $current_user, $default_charset;
     
     $situazione_form_contatto = 'Eseguita';
 		
@@ -1898,7 +1906,7 @@ function aggiornaSituazioneFormazioneRisorsaInAnagrafica($risorsa){
 }
 
 function aggiornaStatoMansioniRisorseNonAttive(){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
 
 	/* kpro@tom010220170902 */
 
@@ -1928,7 +1936,7 @@ function aggiornaStatoMansioniRisorseNonAttive(){
 }
 
 function getRisorseNonAttiveAllaData($data){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
 
 	/* kpro@tom010220170902 */
 
@@ -1969,7 +1977,7 @@ function getRisorseNonAttiveAllaData($data){
 }
 
 function setMansioneRisorsaNonAttiva($mansionerisorsaid, $data_fine){
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
 
 	/* kpro@tom010220170902 */
 
@@ -1987,7 +1995,7 @@ function setMansioneRisorsaNonAttiva($mansionerisorsaid, $data_fine){
 }
 
 function getConfigurazioneIdStatici($id_configurazione){	
-	global $adb, $table_prefix, $current_user;
+	global $adb, $table_prefix, $current_user, $default_charset;
 
 	/* kpro@bid16042018 */
 
