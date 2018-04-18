@@ -124,6 +124,8 @@ function generaScadenzeFattura($fattura){
      * 
      * Questo script genera le scadenze della fattura
      */
+	
+    require_once('modules/SproCore/Scadenziario/Scadenziario_utils.php'); /* kpro@bid180420181220 */
     
     $q_dati_fattura = "SELECT 
                         inv.mod_pagamento mod_pagamento,
@@ -359,66 +361,5 @@ function generaScadenzeFattura($fattura){
     }
  
 }
-
-/* kpro@bid180420181220 */
-function calcolaDataScadenza($data_fattura, $numero_giorni, $fine_mese){
-    global $adb, $table_prefix,$current_user;
-    
-    /**
-     * @author Tomiello Marco
-     * @copyright (c) 2016, Kpro Consulting Srl
-     * @package fatturazioneConOdf
-     * @version 1.0
-     * 
-     * Questo script calcola la data della scadenza
-     */
-    
-    if($numero_giorni % 30 == 0){
-        $numero_mesi = $numero_giorni / 30;
-    }
-    else{
-        $numero_mesi = 0;
-    }
-    
-    if($fine_mese){
-        $array_data_fattura = explode('-', $data_fattura);
-        $anno_fattura = $array_data_fattura[0];
-        $mese_fattura = $array_data_fattura[1];
-        $giorno_fattura = $array_data_fattura[2];
-        
-        $data_fattura_temp = $anno_fattura."-".$mese_fattura."-01";
-        $data_fattura_temp = date_create($data_fattura_temp);
-        if($numero_mesi > 0){
-            date_add($data_fattura_temp, date_interval_create_from_date_string($numero_mesi." months"));
-        }
-        else{
-            date_add($data_fattura_temp, date_interval_create_from_date_string($numero_giorni." days"));
-        }
-        $data_fattura_temp = date_format($data_fattura_temp,"Y-m-d");
-        $array_data_fattura_temp = explode('-', $data_fattura_temp);
-        $anno_fattura_temp = $array_data_fattura_temp[0];
-        $mese_fattura_temp = $array_data_fattura_temp[1];
-        
-        $ultimo_giorno_mese_fattura_temp = date("t", strtotime($data_fattura_temp));
-        if($ultimo_giorno_mese_fattura_temp < $giorno_fattura){
-            $giorno_fattura = $ultimo_giorno_mese_fattura_temp;
-        }
-        
-        $data_scadenza = $anno_fattura_temp."-".$mese_fattura_temp."-".$giorno_fattura;
-    }
-    else{
-        $data_fattura = date_create($data_fattura);
-        if($numero_mesi > 0){
-            date_add($data_fattura, date_interval_create_from_date_string($numero_mesi." months"));
-        }
-        else{
-            date_add($data_fattura, date_interval_create_from_date_string($numero_giorni." days"));
-        }
-        $data_scadenza = date_format($data_fattura,"Y-m-d");
-    }
-    
-    return $data_scadenza; 
-}
-/* kpro@bid180420181220 end */
 		
 ?>
