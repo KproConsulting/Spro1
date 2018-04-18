@@ -31,12 +31,9 @@ function calcolaDataScadenza($data, $numero_giorni, $fine_mese){
         $anno_temp = $array_data_temp[0];
         $mese_temp = $array_data_temp[1];
         
-        $ultimo_giorno_mese_temp = date("t", strtotime($data_temp));
-        if($ultimo_giorno_mese_temp < $giorno){
-            $giorno = $ultimo_giorno_mese_temp;
-        }
+        $giorno_scadenza = date("t", strtotime($data_temp));
         
-        $data_scadenza = $anno_temp."-".$mese_temp."-".$giorno;
+        $data_scadenza = $anno_temp."-".$mese_temp."-".$giorno_scadenza;
     }
     else{
         $data = date_create($data);
