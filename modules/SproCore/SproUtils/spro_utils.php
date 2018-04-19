@@ -382,9 +382,20 @@ function calcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza){
 
 	//Kpro@tom160420181414
 
-	include_once(__DIR__."/../../SDK/src/ClienteUtils.php");
+	if( file_exists(__DIR__."/../../SDK/src/KpClienteUtils.php") ){
 
-	kpPostElaborazioneCalcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza);
+		include_once(__DIR__."/../../SDK/src/KpClienteUtils.php");
+
+		try {
+
+			kpPostElaborazioneCalcolaSituazioneFormazioneAzienda($account, $giorni_in_scadenza);
+
+		}
+		catch (Exception $e) {
+			echo 'Caught exception: ',  $e->getMessage(), "\n";
+		}
+
+	}
 
 	//Kpro@tom160420181414 end
     
