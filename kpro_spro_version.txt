@@ -69,3 +69,4 @@ S-PRO 1.0
 - 14/04/2018 kpro@tom160420181414 Modifica per dire che un corso di aggiornamento è un "da eseguire entro" e per settare la data sulla base del corso precedente
 - 17/04/2018 kpro@bid170420180940 Correzione nel portale clienti in quanto non si vedeva lo stato "Eseguire entro" per la formazione
 - 18/04/2018 kpro@bid180420181220 Correzione nel calcolo delle date scadenza pagamenti per evitare che fatture in data 31-01-2018 con pagamento 30gg FM vadano al 31-03-2018
+- 30/04/2018 kpro@bid300420180900 Correzione dei datalist e dei filtri del popup Lista Risorse nella schermata di Gestione Partecipazioni Corso Formazione
