@@ -245,7 +245,7 @@ function DuplicaTicketDaOrdineDiVendita($record, $new_salesorder, $data_ordine, 
             foreach($array_colonne as $nome_colonna){
                 $nome_campo = GetFieldName($nome_colonna, 13);
                 if($nome_campo != ""){
-                    $valore = $adb->query_result($res, 0, $nome_colonna);
+                    $valore = $adb->query_result($res, $i, $nome_colonna); /* kpro@bid210520181600 */
     
                     $ticket->column_fields[$nome_campo] = $valore;
 
@@ -308,7 +308,7 @@ function DuplicaCanoniDaOrdineDiVendita($record, $new_salesorder, $data_ordine, 
             foreach($array_colonne as $nome_colonna){
                 $nome_campo = GetFieldName($nome_colonna, 89);
                 if($nome_campo != ""){
-                    $valore = $adb->query_result($res, 0, $nome_colonna);
+                    $valore = $adb->query_result($res, $i, $nome_colonna); /* kpro@bid210520181600 */
     
                     $canoni->column_fields[$nome_campo] = $valore;
 
