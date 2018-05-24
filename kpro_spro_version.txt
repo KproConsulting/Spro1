@@ -72,3 +72,4 @@ S-PRO 1.0
 - 30/04/2018 kpro@bid300420180900 Correzione dei datalist e dei filtri del popup Lista Risorse nella schermata di Gestione Partecipazioni Corso Formazione
 - 09/05/2018 kpro@bid090520181030 Correzione bug che non inviava mai le mail nella generazione attestati
 - 21/05/2018 kpro@bid210520181600 Correzione bug che duplicava lo stesso ticket/canone più volte con la duplicazione speciale degli ordini di vendita
+- 24/05/2018 kpro@bid240520180920 Correzione bug nel programma di calcolo situazione visite mediche che non scriveva data visita e data fine validità per gli esiti senza visita medica collegata
